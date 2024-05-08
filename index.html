@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/94307a4918.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>ToDo</title>
+</head>
+
+<body>
+    <div id="div" class=" w-full py-6 mb-10">
+        <div class="w-[90%] mx-auto bg-purple-800 py-10 rounded-lg flex flex-col items-center">
+            <h1 class="text-white font-bold text-3xl">ToDo</h1>
+            <button onclick="handleAddBtnClick()" id="add-btn"
+                class=" mt-4 py-2 px-4 bg-white font-semibold rounded-lg text-purple-800 hidden ">Add ToDo</button>
+        </div>
+        <div class="w-full flex flex-col mt-4">
+            <div
+                class="flex flex-col  px-12 rounded-2xl shadow-md bg-base-200 w-[80%] max-w-[700px]  mx-auto bg-gray-50 my-7 py-10">
+                <!-- login screen -->
+                <div id="login" class=" w-[60%] mx-auto my-10">
+                    <form onsubmit="handleLogin(event)" class="flex flex-col">
+                        <input type="text" id="username" name="username"
+                            class="border-2 py-2 px-4 rounded-xl outline-none" placeholder="Enter your name"><br>
+                        <input type="submit" class="bg-purple-800 text-white py-2 px-4 rounded-lg font-semibold"
+                            value="Login">
+                    </form>
+                </div>
+
+                <!-- add todo screen-->
+                <div id="addToDo" class="w-[80%] mx-auto hidden">
+                    <form onsubmit="handleAddToDo(event)" class="flex flex-col gap-2">
+                        <label for="title" class="font-medium">Title
+                        </label>
+                        <input id="title" type="text" name="username" class="border-2 py-2 px-4 rounded-xl outline-none"
+                            placeholder="Enter Title">
+
+                        <label for="desc" class="font-medium mt-2">Description</label>
+                        <textarea name="desc" id="desc" class="border-2 py-2 px-4 rounded-xl outline-none resize-none"
+                            placeholder="Enter Description"></textarea>
+
+                        <label for="date" class="font-medium mt-2">Deadline</label>
+                        <input class="border-2 py-2 px-4 rounded-xl outline-none resize-none" type="date" name="date"
+                            id="date">
+
+                        <input type="submit" class="bg-purple-800 text-white py-2 px-4 rounded-lg font-semibold mt-2"
+                            value="Add">
+                    </form>
+                </div>
+
+                <!-- sort button -->
+                <div id="sortBy" class="max-w-sm mx-auto mb-6 hidden">
+                    <select onchange="handleSorting(event)" id="sort"
+                        class="bg-purple-800 border border-purple-800 text-white text-sm rounded-lg  block w-full p-2.5 font-medium">
+                        <option selected disabled>Sort By</option>
+                        <option value="asc">Date Asc.</option>
+                        <option value="desc">Date Desc.</option>
+                    </select>
+                </div>
+
+                <!-- todo incomplete -->
+                <div id="incomplete-todo-container" class="hidden">
+                    <h1 class="font-medium text-2xl mb-10 ">Task To Do: <span id="incomplete-count"></span></h1>
+                    <div id="todo" class="py-2 flex flex-col gap-8">
+
+                    </div>
+                </div>
+
+                <!-- edit todo screen-->
+                <div id="editToDo" class=" w-[80%] mx-auto">
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+        <div class="px-16 py-12 rounded-2xl shadow-md bg-base-200 w-[80%] max-w-[700px]  mx-auto bg-gray-50 my-7 hidden"
+            id="complete-todo-container">
+            <h1 class="font-medium text-2xl mb-10">Task Completed: <span id="complete-count"></span></h1>
+
+            <!-- todo complete -->
+            <div id="todo-complete" class="py-2 flex flex-col gap-8">
+            </div>
+
+        </div>
+    </div>
+
+
+    <script src="index.js"></script>
+</body>
+
+</html>
+
