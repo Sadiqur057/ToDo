@@ -72,6 +72,9 @@ const handleAddToDo = (e) => {
   const data = { id, title, desc, date, isCompleted }
   saveToLS(data);
   showIncompleteData();
+  e.target.title.value = '';
+  e.target.desc.value = '';
+  e.target.date.value = '';
 }
 
 const saveToLS = (data) => {
