@@ -12,7 +12,7 @@ const showElementById = (id) => {
   element.classList.add('block');
 }
 
-const setInnerTextById = (id, value) =>{
+const setInnerTextById = (id, value) => {
   const element = document.getElementById(id);
   element.innerText = value;
 }
@@ -93,16 +93,21 @@ const fetchFromLS = (user) => {
 }
 
 
-const showIncompleteData = async (sortBy) => {
+const showIncompleteData = async (sortBy, newData) => {
   showElementById('add-btn')
   const allData = await fetchFromLS(user);
   const incompleteData = [...allData].filter((data) => {
     return data.isCompleted !== true;
   })
-  setInnerTextById('incomplete-count',incompleteData.length)
+  setInnerTextById('incomplete-count', incompleteData.length)
   let displayData;
-  if (!sortBy) {
-    displayData = [...incompleteData]
+  if (!sortBy ) {
+    if(newData){
+      console.log(newData)
+      displayData = newData
+    }else{
+      displayData = [...incompleteData]
+    }
   } else {
     if (sortBy === 'asc') {
       displayData = [...incompleteData].sort((a, b) => {
@@ -114,6 +119,8 @@ const showIncompleteData = async (sortBy) => {
       })
     }
   }
+
+  
   const todoContainer = document.getElementById('todo')
   todoContainer.innerHTML = ''
 
@@ -158,7 +165,7 @@ const showCompletedData = async () => {
   const completedList = allData.filter(data => {
     return data.isCompleted === true;
   })
-  setInnerTextById('complete-count',completedList.length)
+  setInnerTextById('complete-count', completedList.length)
 
   if (completedList.length === 0) {
     const notFoundElement = document.createElement('div');
@@ -248,3 +255,14 @@ const updateData = async (e, id) => {
   showElementById('add-btn')
 }
 
+const handleSearch = (e) => {
+  e.preventDefault();
+  const keyword =e.target.keyword.value
+  const allData = fetchFromLS(user);
+  const targetData = allData.filter(data=>{
+    return data.title.includes(keyword)
+  })
+  const sort = false;
+  showIncompleteData(sort,targetData)
+  console.log(targetData)
+}
