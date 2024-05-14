@@ -66,7 +66,7 @@
                     <div class="flex justify-between gap-3 flex-wrap mb-10">
                         <h1 class="font-medium text-2xl ">Task To Do: <span id="incomplete-count"></span></h1>
                         <form onsubmit="handleSearch(event)" class="flex gap-2 h-fit">
-                            <input type="text" class="border-2 py-2 px-4 rounded-xl outline-none" placeholder="Search" name="keyword">
+                            <input id="searchValue" type="text" class="border-2 py-2 px-4 rounded-xl outline-none" onkeyup="handleKeyUp()" placeholder="Search" name="keyword">
                             <input type="submit" value="Search" class="bg-purple-800 text-white py-2 px-4 rounded-lg font-semibold">
                         </form>
                     </div>
