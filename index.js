@@ -266,3 +266,14 @@ const handleSearch = (e) => {
   showIncompleteData(sort,targetData)
   console.log(targetData)
 }
+
+const handleKeyUp =()=>{
+  const allData = fetchFromLS(user);
+  const value = document.getElementById("searchValue").value;
+  console.log(value)
+  const targetData = allData.filter(data=>{
+    return data.title.toLowerCase().includes(value.toLowerCase())
+  })
+  const sort = false
+  showIncompleteData(sort,targetData)
+}
