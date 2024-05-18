@@ -101,11 +101,11 @@ const showIncompleteData = async (sortBy, newData) => {
   })
   setInnerTextById('incomplete-count', incompleteData.length)
   let displayData;
-  if (!sortBy ) {
-    if(newData){
+  if (!sortBy) {
+    if (newData) {
       console.log(newData)
       displayData = newData
-    }else{
+    } else {
       displayData = [...incompleteData]
     }
   } else {
@@ -120,7 +120,7 @@ const showIncompleteData = async (sortBy, newData) => {
     }
   }
 
-  
+
   const todoContainer = document.getElementById('todo')
   todoContainer.innerHTML = ''
 
@@ -257,23 +257,46 @@ const updateData = async (e, id) => {
 
 const handleSearch = (e) => {
   e.preventDefault();
-  const keyword =e.target.keyword.value
+  const keyword = e.target.keyword.value
   const allData = fetchFromLS(user);
-  const targetData = allData.filter(data=>{
+  const targetData = allData.filter(data => {
     return data.title.includes(keyword)
   })
   const sort = false;
-  showIncompleteData(sort,targetData)
+  showIncompleteData(sort, targetData)
   console.log(targetData)
 }
 
-const handleKeyUp =()=>{
+const handleKeyUp = () => {
   const allData = fetchFromLS(user);
   const value = document.getElementById("searchValue").value;
   console.log(value)
-  const targetData = allData.filter(data=>{
-    return data.title.toLowerCase().includes(value.toLowerCase())
-  })
-  const sort = false
-  showIncompleteData(sort,targetData)
+  const targetData = fetchFromLS(user);
+  const highlightText = (text, highlight) => {
+    if (!highlight) return text;
+    const regex = new RegExp(`(${highlight})`, 'gi');
+    return text.replace(regex, '<mark>$1</mark>');
+  };
+  const todoContainer = document.getElementById("todo");
+  todoContainer.innerHTML = ''; 
+
+  targetData.forEach(data => {
+    const highlightedTitle = highlightText(data.title, value);
+    const resultItem = document.createElement("div");
+    resultItem.classList.add("grid", "grid-cols-11", "gap-6", "border-2", "p-6", "rounded-lg", "bg-pink-50");
+    resultItem.innerHTML = `
+      <div class="col-span-10">
+        <h1 class="text-2xl font-semibold pb-2">${highlightedTitle}</h1>
+        <p class="pb-[2px]">Complete by - <span class="font-medium">${data.date}</span></p>
+        <p>${data.desc}</p>
+      </div>
+      <div class="col-span-1 items-end flex flex-col justify-center gap-4 text-2xl text-purple-800">
+        <button onclick="CheckComplete(${data.id})" class="cursor-pointer"><i class="fa-solid fa-check-to-slot"></i></button>
+        <button onclick="editData(${data.id})" class="cursor-pointer"><i class="fa-solid fa-pen-to-square"></i></button>
+        <button onclick="deleteFromLS(${data.id})" class="cursor-pointer"><i class="fa-solid fa-trash"></i></button>
+      </div>
+    `;
+    todoContainer.appendChild(resultItem);
+  });
 }
+
