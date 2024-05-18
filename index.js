@@ -271,7 +271,9 @@ const handleKeyUp = () => {
   const allData = fetchFromLS(user);
   const value = document.getElementById("searchValue").value;
   console.log(value)
-  const targetData = fetchFromLS(user);
+  const targetData = [...allData].filter((data) => {
+    return data.isCompleted !== true;
+  });
   const highlightText = (text, highlight) => {
     if (!highlight) return text;
     const regex = new RegExp(`(${highlight})`, 'gi');
